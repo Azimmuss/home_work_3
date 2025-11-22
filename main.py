@@ -48,15 +48,28 @@ def main(page: ft.Page):
 
         page.update()
 
+    def delete_last(_):
+        if not history_name:
+            history_text.value = "История пуста!"
+        else:
+            history_name.pop()
+            if history_name:
+                history_text.value = "История приветствий:\n" + "\n".join(history_name)
+            else:
+                history_text.value = "История пуста!"
+        page.update()
+
     name_button = ft.ElevatedButton("send", icon=ft.Icons.SEND, on_click=on_button_click)
+
+    delete_button = ft.ElevatedButton("Удалить последнее", icon=ft.Icons.DELETE, on_click=delete_last)
 
     page.add(
         greeting_text,
         name_input,
         age_input,
         name_button,
+        delete_button,
         history_text
     )
-
 
 ft.app(target=main)
